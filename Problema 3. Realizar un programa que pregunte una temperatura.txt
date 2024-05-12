@@ -1,0 +1,41 @@
+ Realizar un programa que pregunte las temperaturas, si es calida, templada o fria. Todas las temperaturas frias empezaran de 12 grados hacia abajo, las calidas de 18 grados hacia arriba y el rango del medio seran las templados.
+
+
+.model small
+.stack 100h
+.data
+
+	mens1 db "¿A cuantos grados estas?"
+	mens2 db "La temperatura es calida"
+	mens3 db "La temperatura es templada"
+	mens4 db "La temperatura es fria"
+	temp
+.code
+
+	mov dx,offset mens1
+	mov ah,09h
+	int 21h
+	mov ah,8h
+	int 21
+	mov temp,al
+
+
+	cmp temp, 12
+		jbe fria
+		cmp temp, 18
+		jge calida
+		mov dx, offset mens3
+		mov ah, 09h
+		int 21h
+		jmp fin
+	fria:
+		mov dx, offset mens4
+		mov ah, 09h
+		int 21h
+		jmp fin
+	calida:
+		mov dx, offset mens2
+		mov ah, 09h
+		int 21h
+		jmp fin
+	fin:end

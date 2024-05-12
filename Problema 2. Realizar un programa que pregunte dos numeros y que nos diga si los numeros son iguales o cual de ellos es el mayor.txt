@@ -1,0 +1,51 @@
+Realizar un programa que pregunte dos numeros y que nos diga si los numeros son iguales o cual de ellos es el mayor
+
+.model small
+.stack 100h
+.data
+
+	mens1 db "Dame el primer numero"
+	mens2 db "Dame el segundo numero"
+	mens3 db "Los numeros son iguales"
+	mens4 db "El primer numero es el mayor"
+	mens5 db "El segundo numero es el mayor"
+	num1 db 0
+	num2 db 0 
+.code
+	mov dx,offset mens1
+	mov ah,09h
+	int 21h
+	mov ah,8h
+	int 21
+	mov num1,al
+
+
+	mov dx, offset mens2
+	mov ah,09h
+	int 21h
+	mov ah,8h
+	int 21
+	mov num2,al
+
+	
+	cmp num1,num2
+		je igual
+		cmp num1,num2
+		jg mayor1
+		mov dx,offset mens5
+		mov ah,09h
+		int 21h
+		jmp fin
+
+	mayor1
+		mov dx,offset mens4
+		mov ah,09h
+		int 21h
+		jmp fin
+	igual:
+		mov dx,offset mens3
+			mov ah,09h
+			int 21h
+			mov ah,8h
+			int 21
+fin: end

@@ -1,0 +1,46 @@
+.model small
+.stack 100h
+.data
+	mens1 db "Dame el rango de las multiplicaciones"
+	ast db "*"
+	igual db "="
+	num db 0
+
+.code
+	mov dx,offset mens1
+	mov ah,09h
+	int 21h
+	mov ah,8h
+	int 21
+mov num, al                 ;movemos el numero que nos dieron a al
+mov cx,1                    ;iniciamos cx en 1
+mov fx,1                    ;iniciamos fc en 1
+rango:
+	cmp fx,al           ;comparamos fx con al	
+	je multiplicacion   ;si fx es igual a al nos lleva a multiplicacion
+	inc fx		    ;si no incrementa fx
+	jmp rango           ;salta a rango, hasta que se cumpla que es igual
+	
+multiplicacion:
+	cmp cx,10
+	jg fin
+	mov ax,dx
+	mul num
+	mov dl,num        
+	mov ah, 02h
+	int 21h
+	mov dx, offset ast
+	mov ah,09h
+	int 21h
+	mov dl,cx
+	mov ah, 02h
+	int 21h
+	mov dx, offset igual
+	mov ah,09h
+	int 21h
+	mov dl,ax
+	mov ah,02h
+	int 21h
+	inc cx
+	jmp multiplicacion
+fin:end

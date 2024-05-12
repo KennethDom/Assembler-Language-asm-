@@ -1,0 +1,56 @@
+Realizar un programa que pregunte 100 numeros y me sume por separado los numeros positivos y los numeros negativos cada vez que encuentre un 0 cuente cuantas veces se encuentra el 0.
+
+
+.model small
+.stack 100h
+.data
+
+	mens1 db "Dame un valor"
+	valor db 0
+	sum bd 0
+	res db 0
+	cero db 0
+.code
+		ciclo:
+			mov dx,offset mens1
+			mov ah,09h
+			int 21h
+			mov ah,8h
+			int 21
+			cmp valor, 0
+			jg suma
+			jmp ciclo
+			cmp valor, 0
+			jb resta
+			jmp ciclo
+			cmp valor, 0
+			je cero
+			jmp ciclo
+		suma:
+			inc valor
+			add sum,al
+			cmp valor, 100
+			jb ciclo
+			mov dl,sum
+			mov ah,09h
+			int 21h
+			jmp ciclo
+		resta: 
+			inc valor
+			add res,al
+			cmp valor, 100
+			jb ciclo
+			mov dl,res
+			mov ah,09h
+			int 21h	
+			jmp ciclo	
+		cero:
+			inc valor
+			inc cero
+			cmp valor, 100
+			jb ciclo
+			mov dl,cero
+			mov ah,09h
+			int 21h	
+			jmp ciclo
+fin: end	

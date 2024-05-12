@@ -1,0 +1,29 @@
+Realizar un progrma que pregunte 100 numeros y solo sume los valores positivos 
+
+
+.model small
+.stack 100h
+.data
+
+	mens1 db "Dame un valor"
+	valor db 0
+	sum bd 0
+.code
+		ciclo:
+			mov dx,offset mens1
+			mov ah,09h
+			int 21h
+			mov ah,8h
+			int 21
+			cmp valor, 0
+			jg suma
+			jmp ciclo
+		suma:
+			inc valor
+			add sum,al
+			cmp valor, 100
+			jb ciclo
+		mov dl,sum
+		mov ah,09h
+		int 21h
+fin:end

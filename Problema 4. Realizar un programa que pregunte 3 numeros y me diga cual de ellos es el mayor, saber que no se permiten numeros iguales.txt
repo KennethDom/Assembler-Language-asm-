@@ -1,0 +1,63 @@
+Realizar un program aque pregunte 3 numeros y me diga cual de ellos es el mayor, saber que no se permiten numeros iguales
+
+.model small
+.stack 100h
+.data
+
+	mens1 db "Dame el primer numero"
+	mens2 db "Dame el segundo numero"
+	mens3 db "Dame el tercer numero"
+	mens4 db "El numero mayor es el primero"
+	mens5 db "El numero mayor es el segundo"
+	mens6 db "El numero mayor es el tercero"
+	prim db 0
+	segu db 0
+	terc db 0
+.code
+
+	mov dx,offset mens1
+	mov ah,09h
+	int 21h
+	mov ah,8h
+	int 21
+	mov prim,al
+
+
+	mov dx,offset mens2
+	mov ah,09h
+	int 21h
+	mov ah,8h
+	int 21
+	mov segu,al
+
+
+	mov dx,offset mens3
+	mov ah,09h                                                
+	int 21h
+	mov ah,8h
+	int 21
+	mov terc,al
+
+
+	cmp prim,seg
+		jg mayorprim
+		jmp mayorsegu
+	mayorprim:
+		cmp prim,terc 
+		jb mayorterc
+		mov dx,offset mens4
+		mov ah,09h
+		int 21h
+		jmp fin
+	mayorsegu:
+		cmp segu,terc
+		jb mayorterc
+		mov dx,offset mens5
+		mov ah,09h
+		int 21h
+		jmp fin
+	mayorterc:
+		mov dx,offset mens6
+		mov ah,09h
+		int 21h
+fin: end
