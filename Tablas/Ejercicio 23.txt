@@ -1,0 +1,29 @@
+;Tablas
+.model small
+.stack 100h
+.data
+	tabla db 0,0,0,0,0,0,0,0,0,0 
+	aux db 0
+.code
+	mov si, offset tabla
+	mov di, offset tabla	
+	inc di
+	mov cx, 0
+	for:
+		cmp cx, 9
+		jge fin
+		mov aux, tabla[si]
+		mov tabla[si], tabla[di]
+		mov tabla[di], aux
+		add si, 2
+		add di, 2
+		add cx, 2
+		jmp for
+	fin:
+end. 
+
+;Registros apuntadores
+;si
+;di
+;sp
+:ip

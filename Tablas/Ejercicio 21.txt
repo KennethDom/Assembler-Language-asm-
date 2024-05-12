@@ -1,0 +1,74 @@
+;Un programa que de una tabla nos diga que hay mas, si positivos o negativos
+el 0 no cuenta  
+;Tabla 10 elementos 1 y 0, mostrar en pantalla cuantos 1 hay y cuantos 0
+;Tablas
+.model small
+.stack 100h
+.data
+	tabla db 0,0,0,0,0,0,0,0,0,0 
+	contp db 0
+	contn db 0
+	may db 0
+	msj1 db "Son iguales"
+	msj1 db "Son mas negativos"
+	msj1 db "Son mas positivos"
+.code
+	mov si, offset tabla
+	mov cx, 0
+	for:
+		cmp cx, 9
+		jg fin
+		inc cx
+		cmp tabla[si], 0
+		jb nega
+		cmp tabla[si], 0
+		jg pos
+		
+	x:
+		inc si
+		jmp for
+	nega:
+		inc contn
+		jmp X
+	pos:
+		inc contp
+		jmp X
+
+		cmp contn, contp
+		je igual
+
+		cmp contn, contp
+		jg mayn
+		mov dx, offset mens3
+		mov ah, 09h 			
+		int 21h 
+		jmp fin
+				
+		mov ah, 8h 			
+		int 21h
+	mayn:
+		mov dx, offset mens2
+		mov ah, 09h 			
+		int 21h 
+		jmp fin
+				
+		mov ah, 8h 			
+		int 21h
+	igual:
+		mov dx, offset mens1
+		mov ah, 09h 			
+		int 21h 
+		jmp fin
+				
+		mov ah, 8h 			
+		int 21h
+
+	fin:	
+		mov dl,contn
+		Mov ah,2h
+		Int 21h 
+
+		mov dl,contp
+		Mov ah,2h
+		Int 21h 
+end. 

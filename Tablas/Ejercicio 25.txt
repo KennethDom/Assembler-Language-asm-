@@ -1,0 +1,30 @@
+;Tablas
+.model small
+.stack 100h
+.data
+	t1 db 0,0,0,0,0,0,0,0,0,0 
+	t2 db 0,0,0,0,0,0,0,0,0,0 
+	i db 0
+	aux db 0
+.code
+	mov si, offset t1
+	mov di, offset t2	
+	for:
+		cmp i, 9
+		jg fin
+		mov aux, [si]
+		mov [si], [di]
+		mov [di], aux
+		inc si
+		inc di
+		inc i
+		jmp for
+	fin:
+end. 
+
+;Registros apuntadores
+;si
+;di
+;sp
+:ip
+;tabla[si] == [si]

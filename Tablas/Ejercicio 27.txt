@@ -1,0 +1,33 @@
+;Tablas
+.model small
+.stack 100h
+.data
+	t1 db 0,0,0,0,0,0,0,0,0,0 
+	t2 db 0,0,0,0,0,0,0,0,0,0 
+	t3 db 0,0,0,0,0,0,0,0,0,0
+	i db 0
+	aux db 0
+.code
+	mov si, offset t1
+	mov di, offset t2
+	mov sp, offset t3
+	add sp, 9
+	add di, 9	
+	for:
+		cmp i, 9
+		jg fin
+		cmp [si],[di]
+		jg primero
+		mov [sp], [di]
+	x:
+		inc i
+		inc si
+		dec di
+		dec sp
+		jmp for
+	primero:
+		mov [sp], [si]
+		jmp x
+
+	fin:
+end. 

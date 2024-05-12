@@ -1,0 +1,96 @@
+.model small
+.stack 100h
+.data
+	contm db 0
+	contd dn 0
+	salarioT db 0
+	tipo db 0
+	i db 0
+	msj1 db "Cual es tu salario"
+	msj2 db "que tipo es (1)1500 (2)2000 (3)3000 (4)3500"
+	msj3 db "Eres (1)hombre o (2)mujer"
+	msj4 db "Eres (1)discapacitado o (2)no discapacitado"
+.code
+	for:
+		cmp i, 100
+		jge fin
+		inc i
+		mov dx, offset mens1
+		mov ah, 09h 			
+		int 21h 
+		jmp fin
+				
+		mov ah, 8h 			
+		int 21h		
+		
+		add salarioT, al
+		
+		mov dx, offset mens2
+		mov ah, 09h 			
+		int 21h 
+				
+		mov ah, 8h 			
+		int 21h
+
+		cmp al, 1
+		je tp1
+		cmp al, 2
+		je tp2
+		cmp al, 3
+		je tp3
+		add salarioT, 3500	
+	p2:
+		mov dx, offset mens3
+		mov ah, 09h 			
+		int 21h 
+		jmp fin
+				
+		mov ah, 8h 			
+		int 21h
+
+		cmp al, 2
+		je mujer
+	p3:
+		mov dx, offset mens4
+		mov ah, 09h 			
+		int 21h 
+		jmp fin
+				
+		mov ah, 8h 			
+		int 21h
+			
+		cmp al, 0
+		je for
+	disca:
+		add salarioT, 500
+		inc contd
+		jmp for
+	mujer:
+		add salarioT, 2000
+		inc contm
+		jmp p3
+	tp1:
+		add salarioT, 1500
+		jmp p2
+	tp2:
+		add salarioT, 2000
+		jmp p2
+	tp3:
+		add salarioT, 3000
+		jmp p2	
+	fin:	
+		;Salario total
+		mov dl,salarioT
+		Mov ah,2h
+		Int 21h
+		
+		;Mujeres
+		mov dl,contm
+		Mov ah,2h
+		Int 21h
+
+		;Discapacitados
+		mov dl,contd
+		Mov ah,2h
+		Int 21h
+end. 

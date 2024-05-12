@@ -1,0 +1,33 @@
+;Tabla 10 elementos 1 y 0, mostrar en pantalla cuantos 1 hay y cuantos 0
+;Tablas
+.model small
+.stack 100h
+.data
+	tabla db 0,0,0,0,0,0,0,0,0,0 
+	cont0 db 0
+	cont1 db 0
+.code
+	mov si, offset tabla
+	mov cx, 0
+	for:
+		cmp cx, 9
+		jge fin
+		inc cx
+		cmp tabla[si], 1
+		je uno
+		inc si
+		inc cont0
+		jmp for
+	uno:
+		inc cont1
+		inc si
+		jmp for
+	fin:
+		mov dl,cont0
+		Mov ah,2h
+		Int 21h 
+
+		mov dl,cont1
+		Mov ah,2h
+		Int 21h 
+end. 
